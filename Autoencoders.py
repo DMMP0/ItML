@@ -219,7 +219,7 @@ def create_embedding(encoder, full_loader, embedding_dim, device):
     """
     # Set encoder to eval mode.
     encoder.eval()
-    # Just a place holder for our 0th image embedding.
+    # Just a placeholder for our 0th image embedding.
     embedding = torch.randn(embedding_dim)
 
     # Again we do not compute loss here so. No gradients.

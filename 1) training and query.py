@@ -19,7 +19,7 @@ import hash as H
 from PIL import Image
 
 
-class ImageSuggester():
+class ImageSuggester:
     """The purpose of this class is to suggest k images from a gallery
     given a query image. It's implemented via a combination of Convolutional autoencoders,
     KNN and image hashing"""
@@ -65,9 +65,8 @@ class ImageSuggester():
         Returns the num_images closest neares images.
 
 
-        :param image_name: Name of the image whose similar images are to be found.
         :param num_images: Number of similar images to find.
-        :param knn_metric: metric for knn when autoencoders are used
+        :param knn_metric: metric for knn when auto-encoders are used
         :param method: can be:
             "auto-encoders" if only auto-encoders should be used.
             "hash" if only image hashing should be used
@@ -112,7 +111,7 @@ class ImageSuggester():
                 distances_list = distances.tolist()[0]
 
                 assoc = dict(zip(indices_list, distances_list))
-                # todo: fix for bad index
+
                 for index in indices_list:
                     list_ris.append((self.__mapper[str(index)], assoc[index]))
                 encoder_ris[image_name] = list_ris
@@ -181,7 +180,7 @@ class ImageSuggester():
 
         # We need feature representations for complete dataset not just train and validation.
 
-        # Hence we use full loader here.
+        # Hence, we use full loader here.
         embedding = A.create_embedding(self.encoder, full_loader, embedding_shape, self.device)
 
         # Convert embedding to numpy and save them

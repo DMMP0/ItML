@@ -23,8 +23,6 @@ layer = hub.KerasLayer(model_url)
 model = tf.keras.Sequential([layer])
 
 
-
-
 def extract(file):
     file = Image.open(file).convert('L').resize(IMAGE_SHAPE)
     #                       grayscale
@@ -52,10 +50,10 @@ def compute_similar_images(query_gallery_path, gallery_path, metric="cosine"):
     q_features = list()
     g_features = list()
     for img_q in query_imgs:
-        q_features.append((img_q,extract(query_gallery_path+"/"+img_q)))
+        q_features.append((img_q, extract(query_gallery_path + "/" + img_q)))
     print("query done")
     for img_g in gallery_imgs:
-        g_features.append((img_g, extract(gallery_path+"/"+img_g)))
+        g_features.append((img_g, extract(gallery_path + "/" + img_g)))
     print("gallery done\nstarting distances")
     for im1 in q_features:
         tmp_lst = list()
@@ -72,7 +70,7 @@ def compute_similar_images(query_gallery_path, gallery_path, metric="cosine"):
 
 def jsonify(lists, top_k):
     ris = dict()
-    ris["groupname"] = "Random Guys" #nb: NOT REQUEST
+    ris["groupname"] = "Random Guys"  # nb: NOT REQUEST
     ris["images"] = dict()
 
     for lst in lists:
@@ -84,7 +82,7 @@ def jsonify(lists, top_k):
                 i += 1
             else:
                 break
-    with open("result_only_pretrain.json","w") as f:
+    with open("result_only_pretrain.json", "w") as f:
         json.dump(ris, f)
     return ris
 
@@ -111,7 +109,7 @@ def plot_em(dict_of_lists, gallery_path, query_path, size=(456, 456)):
     for key in dict_of_lists:
 
         ims = [Image.open(gallery_path + '/' + x).resize(size) for x in dict_of_lists[key][1:]]
-        ims.insert(0,PIL.Image.open(query_path + "/" + key).resize(size))
+        ims.insert(0, PIL.Image.open(query_path + "/" + key).resize(size))
         widths, heights = zip(*(i.size for i in ims))
 
         total_width = sum(widths)
@@ -129,4 +127,3 @@ def plot_em(dict_of_lists, gallery_path, query_path, size=(456, 456)):
 
 
 plot_em(d, gallery, query)
-

@@ -11,7 +11,7 @@ from torchvision import models
 import pandas as pd
 import numpy as np
 
-# needed input dimensions for the CNN
+# input needed dimensions for the CNN
 inputDim = (224, 224)
 inputDir = "./challenge_test_data/gallery"
 inputDirCNN = "inputImagesCNN"
@@ -45,7 +45,7 @@ for imageName in query_list:
     I.close()
 
 
-class Img2VecResnet18():
+class Img2VecResnet18:
     def __init__(self):
         self.device = torch.device("cuda:0")
         self.numberFeatures = 256
@@ -104,7 +104,7 @@ for image in query_list:
 def getSimilarityMatrix(vectors):
     v = np.array(list(vectors.values())).T
     sim = np.inner(v.T, v.T) / (
-            (np.linalg.norm(v, axis=0).reshape(-1, 1)) * ((np.linalg.norm(v, axis=0).reshape(-1, 1)).T))
+            (np.linalg.norm(v, axis=0).reshape(-1, 1)) * (np.linalg.norm(v, axis=0).reshape(-1, 1)).T)
     keys = list(vectors.keys())
     matrix = pd.DataFrame(sim, columns=keys, index=keys)
 
